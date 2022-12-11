@@ -1,24 +1,7 @@
 # README
+Semantic Trajectories as Knowledge Graphs - STaKG - management application aims to provide a set of methods-scripts to efficiently manage enrich and retrieve data and information related to semantic trajectories. 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The use case that STaKG application is build on, is the management and retrieval of UAV Drone trajectories.
+The application is based on Ruby on Rails and utilizes neo4j-ruby-driver and activegraph gems from [Neo4j.rb project](http://neo4jrb.io/) to handle movement logs and record data, stored in Neo4j as Knowledge Graphs.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The project is currently in progress, management and enrichment methods are placed in model classes which are created following the [Onto4Drone](https://github.com/KotisK/onto4drone) ontology.
