@@ -5,7 +5,10 @@ The use case that STaKG application is build on, is the management and retrieval
 The application is based on Ruby on Rails and utilizes neo4j-ruby-driver and activegraph gems from [Neo4j.rb project](http://neo4jrb.io/) to handle movement logs and record data, stored in Neo4j as Knowledge Graphs.
 
 The  STaKG KG and applications for building and exploiting it are developed following the CHEKG methodology. Phases and tasks of CHEKG are described in the following figures:
-![CKEKG phases.png](assets%2FCKEKG%20phases.png)
-![CHEKG Tasks](./assets/CHEKG tasks.png)
+![CKEKG phases](assets/CKEKG_phases.png)
+*<b>Figure 1.</b> CHEKG phases*
+
+![CHEKG tasks](assets/CHEKG_tasks.png)
+*<b>Figure 2.</b> CHEKG tasks*
 
 The project is currently in progress, management and enrichment methods are placed in model classes which are created based on the [Onto4Drone](https://anonymous.4open.science/r/onto4drone-D556) ontology.
