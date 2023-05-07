@@ -1,0 +1,261 @@
+{
+  "title": "STaKG board",
+  "version": "2.1",
+  "settings": {
+    "pagenumber": 0,
+    "editable": true,
+    "fullscreenEnabled": true,
+    "parameters": {
+      "neodash_trajectory_name": "SigriTraj",
+      "neodash_point_uri": null,
+      "$neodash_point_label": "http://127.0.0.1:8080/?neodash_point_label=Point1443",
+      "undefined": "http://127.0.0.1:8080/?neodash_point_label=Point1461",
+      "neodash_point_label": "Point4840",
+      "neodash_record_source": "http://localhost:3000/photo/DJI_0051.JPG",
+      "neodash_record_name": "DJI_0845.JPG"
+    },
+    "disableRowLimiting": true,
+    "queryTimeLimit": 50
+  },
+  "pages": [
+    {
+      "title": "Main Page",
+      "reports": [
+        {
+          "title": "Recording positons count",
+          "query": "\nmatch (tr:Trajectory)-[:hasPart]-(rp:RecordingPosition)\nwhere tr.name = $neodash_trajectory_name\n//match (rp)-[:hasGeometry]-(n:Point)\nmatch (rp)-[:hasGeometry]-(p:Point)\nreturn count(p) as RecordingPositions\n\n",
+          "width": 3,
+          "height": 2,
+          "x": 3,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {
+            "nodePositions": {}
+          }
+        },
+        {
+          "title": "Selected Semantic Trajectory",
+          "query": "MATCH (n:`Trajectory`) \nWHERE toLower(toString(n.`name`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`name` as value ORDER BY size(toString(value)) ASC LIMIT 5",
+          "width": 3,
+          "height": 2,
+          "x": 0,
+          "y": 0,
+          "type": "select",
+          "selection": {},
+          "settings": {
+            "nodePositions": {},
+            "type": "Node Property",
+            "entityType": "Trajectory",
+            "propertyType": "name",
+            "parameterName": "neodash_trajectory_name"
+          }
+        },
+        {
+          "title": "Selected Point",
+          "query": "MATCH (n:`Point`) \nWHERE toLower(toString(n.`label`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`label` as value ORDER BY size(toString(value)) ASC LIMIT 5",
+          "width": 3,
+          "height": 1,
+          "x": 0,
+          "y": 9,
+          "type": "select",
+          "selection": {},
+          "settings": {
+            "type": "Node Property",
+            "entityType": "Point",
+            "propertyType": "label",
+            "parameterName": "neodash_point_label"
+          }
+        },
+        {
+          "title": "Trajectory map with Recording and Raw Positions",
+          "query": "match (tr:Trajectory {name:$neodash_trajectory_name})-[:hasPart]-(rp:RecordingPosition)-[:hasGeometry]-(p:Point)\nwith  collect({id: rp.name, label:\"Rec\",point: p.location, explore: p.label }) as rec_points, tr\nmatch (tr)-[:hasPart]-(rawp:RawPosition)-[:hasGeometry]-(n:Point)\nwith collect({id: rawp.name,  label:\"Raw\",point: n.location}) as raw_points, rec_points\n//unwind p + pp as pa\nreturn raw_points, rec_points\n\n\n",
+          "width": 6,
+          "height": 3,
+          "x": 0,
+          "y": 5,
+          "type": "map",
+          "selection": {
+            "Point": "(no label)"
+          },
+          "settings": {
+            "nodePositions": {},
+            "clusterMarkers": false,
+            "defaultNodeSize": "small",
+            "hideSelections": true,
+            "styleRules": [
+              {
+                "field": "p.label",
+                "condition": "=",
+                "value": "Rec",
+                "customization": "marker color",
+                "customizationValue": "black"
+              },
+              {
+                "field": "pp.label",
+                "condition": "=",
+                "value": "\"Raw\"",
+                "customization": "marker color",
+                "customizationValue": ""
+              }
+            ],
+            "layerType": "markers",
+            "nodeColorScheme": "category10"
+          }
+        },
+        {
+          "title": "Recording Event Relations (select Recording Position from \"Trajectory map with Recording positions\" to display nodes)",
+          "query": "\nmatch (recp)-[g:hasGeometry]-(rp:Point)\nmatch (tr:Trajectory {name: $neodash_trajectory_name})-[hp:hasPart]-(recp)\nmatch (recp)<-[oc:occurs]-(rev:RecordingEvent)\nmatch (rev)-[prod:produces]-(record:Record)-[recs:records]-> (poi:PointOfInterest)\n\n//where tr.name = $neodash_trajectory_name\nwhere rp.label = $neodash_point_label\nreturn tr,hp, recp, g, rp, rev, record, prod, oc, recs, poi\n\n\n\n",
+          "width": 8,
+          "height": 3,
+          "x": 0,
+          "y": 2,
+          "type": "graph",
+          "selection": {
+            "Trajectory": "label",
+            "RawPosition": "name",
+            "RecordingPosition": "name",
+            "Point": "label",
+            "RecordingEvent": "name",
+            "Record": "name",
+            "Photograph": "name",
+            "PointOfInterest": "name"
+          },
+          "settings": {
+            "nodePositions": {},
+            "layout": "force-directed"
+          }
+        },
+        {
+          "title": "Record Preview",
+          "query": "./photo/$neodash_trajectory_name/$neodash_record_name\n",
+          "width": 4,
+          "height": 3,
+          "x": 8,
+          "y": 2,
+          "type": "iframe",
+          "selection": {},
+          "settings": {}
+        },
+        {
+          "title": "Selected Record",
+          "query": "MATCH (n:`Record`) \nWHERE toLower(toString(n.`name`)) CONTAINS toLower($input) \nRETURN DISTINCT n.`name` as value ORDER BY size(toString(value)) ASC LIMIT 5",
+          "width": 3,
+          "height": 1,
+          "x": 0,
+          "y": 8,
+          "type": "select",
+          "selection": {},
+          "settings": {
+            "type": "Node Property",
+            "entityType": "Record",
+            "propertyType": "name",
+            "parameterName": "neodash_record_name"
+          }
+        },
+        {
+          "title": "Recording positions map",
+          "query": "match (tr:Trajectory)-[:hasPart]-(rp:RecordingPosition)\nwhere tr.name = $neodash_trajectory_name\n//match (rp)-[:hasGeometry]-(n:Point)\nmatch (rp)-[:hasGeometry]-(p:Point)\nreturn p\n\n\n",
+          "width": 3,
+          "height": 2,
+          "x": 9,
+          "y": 0,
+          "type": "map",
+          "selection": {
+            "Point": "(no label)"
+          },
+          "settings": {
+            "nodePositions": {},
+            "layerType": "markers"
+          }
+        },
+        {
+          "title": "Trajectory segmentaion (recording / non-recording segmetns )",
+          "query": "match (tr:Trajectory {name:$neodash_trajectory_name})-[:hasPart]-(rp:RawPosition)-[:hasGeometry]-(p:Point)\nwhere (rp)-[:comprises]-(:RecordingSegment)\nwith  collect({id: rp.name, label:\"Rec\",point: p.location, explore: p.label }) as p, tr\nmatch (tr)-[:hasPart]-(rawp:RawPosition)-[:hasGeometry]-(n:Point)\nwith collect({id: rawp.name,  label:\"Raw\",point: n.location}) as pp, p\n//unwind p + pp as pa\nreturn pp, p\n\n\n",
+          "width": 6,
+          "height": 3,
+          "x": 6,
+          "y": 5,
+          "type": "map",
+          "selection": {
+            "Point": "(no label)"
+          },
+          "settings": {
+            "nodePositions": {},
+            "clusterMarkers": false,
+            "defaultNodeSize": "small",
+            "hideSelections": true,
+            "styleRules": [
+              {
+                "field": "p.label",
+                "condition": "=",
+                "value": "Rec",
+                "customization": "marker color",
+                "customizationValue": "black"
+              },
+              {
+                "field": "pp.label",
+                "condition": "=",
+                "value": "\"Raw\"",
+                "customization": "marker color",
+                "customizationValue": ""
+              }
+            ],
+            "layerType": "markers",
+            "nodeColorScheme": "set2"
+          }
+        },
+        {
+          "title": "Recording posisions location",
+          "query": "match (tr:Trajectory)-[:hasPart]-(rp:RecordingPosition)\nwhere tr.name = $neodash_trajectory_name\n//match (rp)-[:hasGeometry]-(n:Point)\nmatch (rp)-[:hasGeometry]-(p:Point)\nreturn p.latitude as latitude, p.longitude as longitude\n\n\n",
+          "width": 3,
+          "height": 2,
+          "x": 6,
+          "y": 0,
+          "type": "table",
+          "selection": {},
+          "settings": {
+            "nodePositions": {}
+          }
+        },
+        {
+          "title": "Intersection of Trajectories (if there are no results change the selected trajectory)",
+          "query": "match (tr:Trajectory {name:$neodash_trajectory_name})-[:intersects]-(tr2:Trajectory)\nmatch (tr)-[:hasPart]-(rawp:RawPosition)-[:hasGeometry]-(n:Point)\nmatch (tr2)-[:hasPart]-(rawp2:RawPosition)-[:hasGeometry]-(n2:Point)\nreturn {id: rawp.name,  label:\"traj1\",point: n.location},{id: rawp2.name,  label:\"traj2\",point: n2.location}\n\n\n",
+          "width": 8,
+          "height": 3,
+          "x": 3,
+          "y": 8,
+          "type": "map",
+          "selection": {
+            "Point": "(no label)"
+          },
+          "settings": {
+            "nodePositions": {},
+            "clusterMarkers": false,
+            "defaultNodeSize": "small",
+            "hideSelections": true,
+            "styleRules": [
+              {
+                "field": "p.label",
+                "condition": "=",
+                "value": "Rec",
+                "customization": "marker color",
+                "customizationValue": "black"
+              },
+              {
+                "field": "pp.label",
+                "condition": "=",
+                "value": "\"Raw\"",
+                "customization": "marker color",
+                "customizationValue": ""
+              }
+            ],
+            "layerType": "markers",
+            "nodeColorScheme": "neodash"
+          }
+        }
+      ]
+    }
+  ],
+  "parameters": {}
+}
