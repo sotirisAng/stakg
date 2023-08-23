@@ -16,6 +16,8 @@ require "rails/test_unit/railtie"
 
 require 'active_graph/railtie'
 require 'neo4j_ruby_driver'
+require "active_record/railtie"
+require 'active_storage/engine'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -26,7 +28,8 @@ module Neo
 
     # Enable ActiveGraph generators, e.g:  rails generate model Admin --parent User
     config.generators do |g|
-      g.orm :active_graph
+      g.orm :active_record
+      # g.orm :active_graph
       # g.test_framework  :rspec, :fixture => false
     end
 
