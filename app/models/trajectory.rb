@@ -40,12 +40,13 @@ class Trajectory
     end
 
     weather_condition = WeatherCondition.new.tap do |wc|
-            wc.reportedPressure = weather["surface_pressure"][i]
-            wc.reportedMaxTemperature = weather["temperature_2m"][i]
-            wc.windSpeedMax = weather["windspeed_10m"][i]
-            wc.save
-            wc.uri = "http://i-lab.aegean.gr/kotis/ontologies/onto4drone##{wc.neo_id}"
-          end
+      wc.reportedPressure = weather["surface_pressure"][i]
+      wc.reportedMaxTemperature = weather["temperature_2m"][i]
+      wc.windSpeedMax = weather["windspeed_10m"][i]
+      wc.label = "WeatherCont#{wc.neo_id}"
+      wc.save
+      wc.uri = "https://w3id.org/onto4drone#WeatherCont#{wc.neo_id}"
+    end
 
     raw_positions.each do |rp|
       rp.weather_condition = weather_condition
@@ -91,7 +92,7 @@ class Trajectory
       RecordingSegment.new.tap do |rs|
         rs.name = "RecordingSegment#{rs.neo_id}"
         rs.label = "RecordingSegment#{rs.neo_id}"
-        rs.uri = "http://i-lab.aegean.gr/kotis/ontologies/onto4drone##{rs.neo_id}"
+        rs.uri = "https://w3id.org/onto4drone##{rs.neo_id}"
         rs.positions = value
         rs.save
       end
@@ -100,7 +101,7 @@ class Trajectory
 
   def enrich_records_from_aegean
     self.recording_positions.each do |rec_position|
-      record =  rec_position.recording_event.record
+      record = rec_position.recording_event.record
       record.get_poi_from_aegean
     end
   end
@@ -108,8 +109,7 @@ class Trajectory
   def enrich_records_from_osm
     self.recording_positions.each do |rec_position|
       record =  rec_position.recording_event.record
-      record.get_poi_from
-      _osm
+      record.get_poi_from_osm
     end
   end
 
@@ -128,4 +128,26 @@ class Trajectory
     end
   end
 
+
+  def self.create_new_from_csv(logfile)
+    CsvReaders.add_id_column(logfile.file_path)
+    trajectory = Trajectory.create(name: logfile.name)
+    query = case logfile.pilot_type
+            when "dji"
+              CypherQueries.create_trajectory_from_dji_csv
+            when "lichi"
+              CsvReaders.change_date_format(logfile.file_path)
+              CypherQueries.create_trajectory_from_lichi_csv
+            end
+
+    ActiveGraph::Base.query(query, name: logfile.name,  url: logfile.file_path )
+                            # url:"http://localhost:3000/logfiles/#{logfile.id}/get_file" ) #"file:///#{logfile.file_path}"
+    trajectory
+  end
+
+  def add_recording_positions_from_csv(flight_file)
+    query = CypherQueries.add_recording_positions_from_csv
+
+    ActiveGraph::Base.query(query, trajectory_label: label, url: flight_file.file_path, base_url: Rails.application.routes.url_helpers.root_url )
+  end
 end

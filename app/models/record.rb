@@ -8,6 +8,7 @@ class Record
   id_property :neo_id
   property :name
   property :label
+  property :file_path
 
   has_many :out, :pois, type: :records, model_class: :PointOfInterest
   has_one :in, :recording_event, type: :produces, model_class: :RecordingEvent
