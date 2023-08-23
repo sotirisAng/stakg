@@ -1,27 +1,3 @@
-<!--<div id="<%#= dom_id flight %>">-->
-<!--  <p>-->
-<!--    <strong>Name:</strong>-->
-    <%#= flight.name %>
-<!--  </p>-->
-<!--  <p>-->
-<!--    <strong>Description:</strong>-->
-    <%#= flight.description %>
-<!--  </p>-->
-
-  <%# if flight.logfile.present? %>
-<!--    <p>-->
-<!--      <strong>Logfile name:</strong>-->
-      <%#= flight.logfile.name %>
-<!--    </p>-->
-  <%# end %>
-
-  <%# if flight.flight_file.present? %>
-<!--    <p>-->
-<!--      <strong>Flight File Collection:</strong>-->
-      <%#= flight.flight_file.collection_name %>
-<!--    </p>-->
-  <%# end %>
-<!--</div>-->
 
 <div id="<%= dom_id flight %>" class="card p-4 space-y-2">
   <p class="font-bold text-lg text-gray-800">

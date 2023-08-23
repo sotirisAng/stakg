@@ -1,0 +1,18 @@
+<div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+
+  <%= render @trajectory %>
+
+  <div class="space-y-2">
+    <%= button_to "Add Recording Positions From Flight Records", add_recording_positions_from_flight_records_trajectory_path(@trajectory), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+    <%= button_to "Enrich Trajectory With Weather", enrich_trajectory_with_weather_trajectory_path(@trajectory), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+    <%= button_to "Create Recording Segments", create_recording_segments_trajectory_path(@trajectory), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+    <%= button_to "Enrich With POIs From Aegean", enrich_with_pois_from_aegean_trajectory_path(@trajectory), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+    <%= button_to "Enrich With POIs From OSM", enrich_with_pois_from_osm_trajectory_path(@trajectory), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+  </div>
+
+  <div class="mt-4 flex items-center gap-3">
+    <!--  <%#= link_to "Edit this trajectory", edit_trajectory_path(@trajectory), class: "p-2 bg-yellow-500 text-white rounded hover:bg-yellow-700" %> |-->
+    <%= link_to "Back to trajectories", trajectories_path, class: "p-2 bg-gray-500 text-white rounded hover:bg-gray-700" %>
+    <%= button_to "Destroy this trajectory", @trajectory, method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "p-2 bg-red-500 text-white rounded hover:bg-red-700" %>
+  </div>
+</div>
