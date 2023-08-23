@@ -1,0 +1,49 @@
+<!--<div id="<%#= dom_id flight %>">-->
+<!--  <p>-->
+<!--    <strong>Name:</strong>-->
+    <%#= flight.name %>
+<!--  </p>-->
+<!--  <p>-->
+<!--    <strong>Description:</strong>-->
+    <%#= flight.description %>
+<!--  </p>-->
+
+  <%# if flight.logfile.present? %>
+<!--    <p>-->
+<!--      <strong>Logfile name:</strong>-->
+      <%#= flight.logfile.name %>
+<!--    </p>-->
+  <%# end %>
+
+  <%# if flight.flight_file.present? %>
+<!--    <p>-->
+<!--      <strong>Flight File Collection:</strong>-->
+      <%#= flight.flight_file.collection_name %>
+<!--    </p>-->
+  <%# end %>
+<!--</div>-->
+
+<div id="<%= dom_id flight %>" class="card p-4 space-y-2">
+  <p class="font-bold text-lg text-gray-800">
+    <strong>Name:</strong>
+    <span class="text-gray-600"><%= flight.name %></span>
+  </p>
+  <p class="text-gray-800">
+    <strong>Description:</strong>
+    <span class="text-gray-600"><%= flight.description %></span>
+  </p>
+
+  <% if flight.logfile.present? %>
+    <p class="text-gray-800">
+      <strong>Logfile name:</strong>
+      <span class="text-gray-600"><%= flight.logfile.name %></span>
+    </p>
+  <% end %>
+
+  <% if flight.flight_file.present? %>
+    <p class="text-gray-800">
+      <strong>Flight File Collection:</strong>
+      <span class="text-gray-600"><%= flight.flight_file.collection_name %></span>
+    </p>
+  <% end %>
+</div>

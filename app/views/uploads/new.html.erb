@@ -1,0 +1,4 @@
+<%= form_for @upload, url: "uploads", html: { multipart: true } do |f| %>
+  <%= f.file_field :filename %>
+  <%= f.submit "Upload" %>
+<% end %>

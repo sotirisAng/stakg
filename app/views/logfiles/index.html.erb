@@ -1,0 +1,15 @@
+
+<h1 class="text-4xl font-semibold mb-5">Logfiles</h1>
+
+<div id="logfiles">
+  <% @logfiles.each do |logfile| %>
+    <div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+    <%= render logfile %>
+    <p>
+      <%= link_to "Show this logfile", logfile, class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+    </p>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "New logfile", new_logfile_path, class: "inline-block mt-5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>

@@ -1,0 +1,26 @@
+<div id="<%= dom_id logfile %>" class="card p-4 space-y-2">
+  <p class="font-bold text-lg text-gray-800">
+    <strong class="font-bold">Name:</strong>
+    <span class="ml-2 text-gray-600"><%= logfile.name %></span>
+  </p>
+
+  <p class="mb-2">
+    <strong class="font-bold">Pilot type:</strong>
+   <span class="ml-2 text-gray-600"> <%= logfile.pilot_type %></span>
+  </p>
+
+  <p class="mb-2">
+    <strong class="font-bold">file_type:</strong>
+     <span class="ml-2 text-gray-600"><%= logfile.file_type %></span>
+  </p>
+
+  <p class="mb-2">
+    <strong class="font-bold">Flight id:</strong>
+    <span class="ml-2 text-gray-600"><%= logfile.flight_id %></span>
+  </p>
+
+  <p>
+    <%= link_to "Get File", url_for(logfile.file) %>
+  </p>
+
+</div>

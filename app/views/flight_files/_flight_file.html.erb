@@ -1,0 +1,45 @@
+<!--<div id="<%#= dom_id flight_file %>">-->
+<!--  <p>-->
+<!--    <strong>Collection name:</strong>-->
+    <%#= flight_file.collection_name %>
+<!--  </p>-->
+
+<!--  <p>-->
+<!--    <strong>Files type:</strong>-->
+    <%#= flight_file.files_type %>
+<!--  </p>-->
+
+<!--  <p>-->
+<!--    <strong>Flight id:</strong>-->
+    <%#= flight_file.flight_id %>
+<!--  </p>-->
+
+<!--  <br>-->
+
+  <%# flight_file.files.each do |file| %>
+    <%#= image_tag(flight_file.file_thumbnail(file)) %>
+  <%# end %>
+<!--</div>-->
+
+<div id="<%= dom_id flight_file %>" class="card p-4 space-y-2">
+  <p class="mb-2 font-bold text-lg text-gray-800">
+    <strong class="font-bold">Collection Name:</strong>
+    <span class="ml-2 text-gray-600"><%= flight_file.collection_name %></span>
+  </p>
+
+  <p class="mb-2">
+    <strong class="font-bold">Files Type:</strong>
+    <span class="ml-2 text-gray-600"><%= flight_file.files_type %></span>
+  </p>
+
+  <p class="mb-2">
+    <strong class="font-bold">Flight:</strong>
+    <span class="ml-2 text-gray-600"><%= flight_file.flight&.name %></span>
+  </p>
+
+  <div class="grid grid-cols-3 gap-4 my-4">
+    <% flight_file.files.each do |file| %>
+      <%= image_tag(flight_file.file_thumbnail(file), class: "rounded-lg shadow-md") %>
+    <% end %>
+  </div>
+</div>

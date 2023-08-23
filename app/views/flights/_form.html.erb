@@ -1,0 +1,59 @@
+<%#= form_with(model: flight) do |form| %>
+  <%# if flight.errors.any? %>
+<!--    <div style="color: red">-->
+<!--      <h2><%#= pluralize(flight.errors.count, "error") %> prohibited this flight from being saved:</h2>-->
+
+<!--      <ul>-->
+        <%# flight.errors.each do |error| %>
+<!--          <li><%#= error.full_message %></li>-->
+        <%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+  <%# end %>
+<%#= form_with model: @flight do |form|%>
+
+<!--    <div>-->
+      <%#= form.label :name, style: "display: block" %>
+      <%#= form.text_field :name %>
+<!--    </div>-->
+
+<!--    <div>-->
+      <%#= form.label :description, style: "display: block" %>
+      <%#= form.text_area :description %>
+<!--    </div>-->
+
+
+<!--    <div>-->
+      <%#= form.submit %>
+<!--    </div>-->
+  <%# end %>
+<%# end %>
+
+<%= form_with(model: flight, class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4") do |form| %>
+  <% if flight.errors.any? %>
+    <div class="mb-6 bg-red-500 text-white p-4 rounded-lg">
+      <h2 class="font-bold">
+        <%= pluralize(flight.errors.count, "error") %> prohibited this flight from being saved:
+      </h2>
+      <ul>
+        <% flight.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <%= form.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :description, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+<% end %>

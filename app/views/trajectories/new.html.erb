@@ -1,0 +1,37 @@
+<!--<h1>New Trajectory</h1>-->
+
+<%#= form_with url: '#', id: 'flight-selection-form' do |form| %>
+  <%#= form.collection_select :flight_id, @flights, :id, :name, prompt: "Select a flight" %>
+  <%#= button_to 'Create Trajectory', '#', id: 'create-trajectory-button', disabled: true %>
+<%# end %>
+
+<!--<br>-->
+
+<!--<div>-->
+  <%#= link_to "Back to trajectories", trajectories_path %>
+<!--</div>-->
+
+<h1 class="text-4xl font-semibold mb-5">New Trajectory</h1>
+
+<%= form_with( url: '#', id: 'flight-selection-form', class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4") do |form| %>
+  <div class="mb-4">
+    <%= form.label :flight_id, "Select a flight", class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.collection_select :flight_id, @flights, :id, :name, { prompt: "Select a flight" }%>
+  </div>
+  <%= button_to 'Create Trajectory', '#', id: 'create-trajectory-button', disabled: true, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+<% end %>
+
+<div class="mt-4">
+  <%= link_to "Back to trajectories", trajectories_path, class: "p-2 bg-gray-500 text-white rounded hover:bg-gray-700" %>
+</div>
+
+<script>
+    document.getElementById('flight-selection-form').addEventListener('change', (event) => {
+        const flightId = event.target.value;
+        if (flightId) {
+            const button = document.getElementById('create-trajectory-button');
+            button.disabled = false;
+            button.formAction = "/trajectories/create_trajectory_from_flight/" + flightId;
+        }
+    });
+</script>

@@ -1,0 +1,13 @@
+<div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+  <%= render @logfile %>
+
+  <div class="mt-4 flex justify-between items-center">
+    <div class="mt-4 flex items-center gap-3">
+      <%= link_to "Edit this logfile", edit_logfile_path(@logfile), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+      <span>|</span>
+      <%= link_to "Back to logfiles", logfiles_path, class: "p-2 bg-gray-500 text-white rounded hover:bg-gray-700" %>
+
+      <%= button_to "Destroy this logfile", @logfile, method: :delete, form: { data: { turbo_confirm: 'Are you sure?' } }, class: "p-2 bg-red-500 text-white rounded hover:bg-red-700" %>
+    </div>
+  </div>
+</div>

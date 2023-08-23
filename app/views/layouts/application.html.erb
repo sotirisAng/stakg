@@ -1,0 +1,90 @@
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+<!--  <head>-->
+<!--    <title>STaKG</title>-->
+<!--    <meta name="viewport" content="width=device-width,initial-scale=1">-->
+    <%#= csrf_meta_tags %>
+    <%#= csp_meta_tag %>
+    <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+    <%#= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%#= javascript_importmap_tags %>
+<!--  </head>-->
+
+<!--  <body>-->
+  <%# if user_signed_in? %>
+<!--    <div> Welcome <%#= current_user.email %> </div>-->
+    <%#= button_to "Sign out", destroy_user_session_path, method: :delete , form: {data: { turbo_confirm: 'Are you sure?' } } %>
+  <%# else %>
+    <%#= button_to "Sign in", new_user_session_path %>
+  <%# end %>
+  <%# if user_signed_in? %>
+<!--    <nav>-->
+      <%#= link_to 'Flights', flights_path %>
+      <%#= link_to 'Flight files', flight_files_path %>
+      <%#= link_to 'Logfiles', logfiles_path %>
+      <%#= link_to 'Trajectories', trajectories_path %>
+<!--    </nav>-->
+  <%# else %>
+<!--    <nav>-->
+      <%#= link_to 'Flights', flights_path %>
+      <%#= link_to 'Flight files', flight_files_path %>
+      <%#= link_to 'Logfiles', logfiles_path %>
+<!--    </nav>-->
+  <%# end %>
+<!--    <p class="notice"><%#= notice %></p>-->
+<!--    <p class="alert"><%#= alert %></p>-->
+    <%#= yield %>
+<!--  </body>-->
+<!--</html>-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>STaKG</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
+
+<body class="font-sans bg-gray-200">
+
+  <div class="flex justify-between px-8 py-4 bg-gray-800 text-white mb-4">
+    <div class="text-xl font-bold text-white mr-4">
+      STaKG
+    </div>
+    <% if user_signed_in? %>
+      <div>
+      <%= link_to 'Flights', flights_path, class: "text-xl font-bold  text-white hover:text-gray-300 mx-4" %>
+      <%= link_to 'Flight files', flight_files_path, class: "text-xl font-bold  text-white hover:text-gray-300 mx-4" %>
+      <%= link_to 'Logfiles', logfiles_path, class: "text-xl font-bold  text-white hover:text-gray-300 mx-4" %>
+      <%= link_to 'Trajectories', trajectories_path, class: "text-xl font-bold  text-white hover:text-gray-300 mx-4" %>
+    </div>
+    <div class="flex items-center" >
+      <span class="p-2 text-xl">
+        <%= current_user.email %>
+      </span>
+      <span class="text-l">
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete , form: {class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded", data: { turbo_confirm: 'Are you sure?' } } %>
+      </span>
+    </div>
+
+<% else %>
+  <%#= button_to "Sign in", new_user_session_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+<% end %>
+    </div>
+<% if notice %>
+  <p class="notice p-4 bg-blue-200"><%= notice %></p>
+<% end %>
+
+<% if alert %>
+  <p class="alert p-4 bg-red-200"><%= alert %></p>
+<% end %>
+<div class="container mx-auto">
+  <%= yield %>
+</div>
+</body>
+</html>

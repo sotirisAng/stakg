@@ -1,0 +1,76 @@
+<%#= form_with(model: flight_file) do |form| %>
+  <%# if flight_file.errors.any? %>
+<!--    <div style="color: red">-->
+<!--      <h2><%#= pluralize(flight_file.errors.count, "error") %> prohibited this flight_file from being saved:</h2>-->
+
+<!--      <ul>-->
+        <%# flight_file.errors.each do |error| %>
+<!--          <li><%#= error.full_message %></li>-->
+        <%# end %>
+<!--      </ul>-->
+<!--    </div>-->
+  <%# end %>
+
+<!--  <div>-->
+    <%#= form.label :collection_name, style: "display: block" %>
+    <%#= form.text_field :collection_name %>
+<!--  </div>-->
+
+<!--  <div>-->
+    <%#= form.label :files_type, style: "display: block" %>
+    <%#= form.text_field :files_type %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :flight %>
+    <%#= form.collection_select :flight_id, @flights, :id, :name, prompt: 'Select Flight' %>
+<!--  </div>-->
+
+<!--  <div>-->
+    <%#= form.label :files, style: "display: block" %>
+    <%#= form.file_field :files, multiple: true %>
+<!--  </div>-->
+
+<!--  <div>-->
+    <%#= form.submit %>
+<!--  </div>-->
+<%# end %>
+
+<%= form_with(model: flight_file, class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4") do |form| %>
+  <% if flight_file.errors.any? %>
+    <div class="mb-6 bg-red-500 text-white p-4 rounded-lg">
+      <h2 class="font-bold"><%= pluralize(flight_file.errors.count, "error") %> prohibited this flight_file from being saved:</h2>
+      <ul>
+        <% flight_file.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="container col-8">
+  <div class="mb-4">
+    <%= form.label :collection_name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :collection_name%>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :files_type, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_field :files_type %>
+  </div>
+
+  <div class="field mb-4">
+    <%= form.label :flight, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.collection_select :flight_id, @flights, :id, :name, {prompt: 'Select Flight'} %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :files, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.file_field :files, multiple: true%>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit "Submit", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+</div>
+
+<% end %>

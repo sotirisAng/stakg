@@ -1,0 +1,7 @@
+<% @uploads.each do |upload| %>
+  <div>
+    <%= image_tag upload.filename.url %>
+    <p><%= upload.filename.file.filename %></p>
+    <p><%= upload.filename.file.content_type %></p>
+  </div>
+<% end %>

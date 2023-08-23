@@ -1,0 +1,34 @@
+<!--<p style="color: green"><%#= notice %></p>-->
+
+<!--<h1>Flight files</h1>-->
+
+<!--<div id="flight_files">-->
+  <%# @flight_files.each do |flight_file| %>
+    <%#= render flight_file %>
+<!--    <p>-->
+      <%#= link_to "Show this flight file", flight_file %>
+<!--    </p>-->
+  <%# end %>
+<!--</div>-->
+
+<%#= link_to "New flight file", new_flight_file_path %>
+
+<% if notice %>
+  <p class="p-4 bg-green-200 text-green-800 rounded-md"><%= notice %></p>
+<% end %>
+
+<h1 class="text-4xl font-semibold mb-4">Flight file collections</h1>
+
+<div id="flight_files" class="space-y-4">
+  <% @flight_files.each do |flight_file| %>
+    <div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+      <%= render flight_file %>
+      <p class="mt-2">
+        <%= link_to "Show this collection", flight_file, class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+      </p>
+    </div>
+  <% end %>
+
+</div>
+
+<%= link_to "New flight file", new_flight_file_path, class: "inline-block mt-4 py-2 px-4 text-white bg-blue-500 hover:bg-blue-700 rounded-md" %>

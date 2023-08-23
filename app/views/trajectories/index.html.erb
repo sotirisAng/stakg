@@ -1,0 +1,28 @@
+
+<!--<h1>Trajectories</h1>-->
+
+<!--<div id="trajectories">-->
+  <%# @trajectories.each do |trajectory| %>
+    <%#= render trajectory %>
+<!--    <p>-->
+      <%#= link_to "Show this trajectory", trajectory %>
+<!--    </p>-->
+  <%# end %>
+<!--</div>-->
+
+<%#= link_to "New trajectory", new_trajectory_path %>
+
+<h1 class="text-4xl font-semibold mb-5">Trajectories</h1>
+
+<div id="trajectories" class="space-y-4">
+  <% @trajectories.each do |trajectory| %>
+    <div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+      <%= render trajectory %>
+      <p>
+        <%= link_to "Show this trajectory", trajectory, class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "New trajectory", new_trajectory_path, class: "inline-block mt-5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>

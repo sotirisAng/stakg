@@ -1,0 +1,43 @@
+<%= form_with(model: logfile, class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4") do |form| %>
+  <% if logfile.errors.any? %>
+    <div class="mb-6 bg-red-500 text-white p-4 rounded-lg">
+      <h2><%= pluralize(logfile.errors.count, "error") %> prohibited this logfile from being saved:</h2>
+
+      <ul>
+        <% logfile.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mt-4 container col-8">
+  <div class="mb-4">
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field mb-4">
+    <%= form.label :pilot_type, style: "display: block" %>
+    <%= form.select :pilot_type, ["dji", "lichi"], prompt: "Select pilot type" %>  </div>
+  </div>
+
+  <div class="field mb-4">
+    <%= form.label :file_type, style: "display: block" %>
+    <%= form.select :file_type, ["csv"], prompt: "Select file type" %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.label :file, style: "display: block" %>
+    <%= form.file_field :file, accept: ".csv" %>
+  </div>
+
+
+  <div class="field mb-4">
+    <%= form.label :flight %>
+    <%= form.collection_select :flight_id, @flights, :id, :name, prompt: 'Select Flight' %>
+  </div>
+
+  <div class="flex items-center justify-between">
+    <%= form.submit "Submit", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+<% end %>

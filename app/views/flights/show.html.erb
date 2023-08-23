@@ -1,0 +1,19 @@
+
+<%#= render @flight %>
+
+<!--<div>-->
+<!--  <%#= link_to "Edit this flight", edit_flight_path(@flight) %> |-->
+  <%#= link_to "Back to flights", flights_path %>
+  <%#= link_to 'Delete', flights_path(@flight), method: :delete, data: { turbo_confirm: 'Are you sure?' } %>
+<!--</div>-->
+<div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+
+  <%= render @flight %>
+
+  <div class="mt-4 flex items-center gap-3">
+    <%= link_to "Edit this flight", edit_flight_path(@flight), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+    <span>|</span>
+    <%= link_to "Back to flights", flights_path, class: "p-2 bg-gray-500 text-white rounded hover:bg-gray-700" %>
+    <%= link_to 'Delete', flights_path(@flight), method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: "p-2 bg-red-500 text-white rounded hover:bg-red-700" %>
+  </div>
+</div>

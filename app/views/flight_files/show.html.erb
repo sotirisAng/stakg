@@ -1,0 +1,22 @@
+
+<%#= render @flight_file %>
+
+<!--<div>-->
+<!--  <%#= link_to "Edit this flight file", edit_flight_file_path(@flight_file) %> |-->
+  <%#= link_to "Back to flight files", flight_files_path %>
+
+  <%#= button_to "Destroy this flight file", @flight_file, method: :delete , form: {data: { turbo_confirm: 'Are you sure?' } } %>
+<!--</div>-->
+<div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+  <%= render @flight_file %>
+
+  <div class="mt-4 flex justify-between items-center">
+    <div class="mt-4 flex items-center gap-3">
+      <%= link_to "Edit this collection", edit_flight_file_path(@flight_file), class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+      <span>|</span>
+      <%= link_to "Back to collections", flight_files_path, class: "p-2 bg-gray-500 text-white rounded hover:bg-gray-700" %>
+      <%= link_to "Destroy this collection", @flight_file, method: :delete, data: { turbo_confirm: 'Are you sure?' }, class: "p-2 bg-red-500 text-white rounded hover:bg-red-700" %>
+    </div>
+
+    </div>
+</div>

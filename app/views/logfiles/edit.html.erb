@@ -1,0 +1,10 @@
+<h1 class="text-3xl font-bold mb-4">Editing logfile</h1>
+
+<%= render "form", logfile: @logfile %>
+
+<br>
+
+<div>
+  <%= link_to "Show this logfile", @logfile, class: "text-blue-500 hover:text-blue-700" %> |
+  <%= link_to "Back to logfiles", logfiles_path, class: "text-blue-500 hover:text-blue-700"%>
+</div>

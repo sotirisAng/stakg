@@ -1,0 +1,19 @@
+<!-- app/views/nodes/show.html.erb -->
+<h1>Resource Information</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Property</th>
+    <th>Value</th>
+  </tr>
+  </thead>
+  <tbody>
+  <%= @resource.to_json %>
+  <%# @resource.attributes.each do |key, value| %>
+<!--    <tr>-->
+<!--      <td><%#= key %></td>-->
+<!--      <td><%#= value %></td>-->
+<!--    </tr>-->
+  <%# end %>
+  </tbody>
+</table>

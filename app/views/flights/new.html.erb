@@ -1,0 +1,17 @@
+<!--<h1>New flight</h1>-->
+
+<%#= render "form", flight: @flight %>
+
+<!--<br>-->
+
+<!--<div>-->
+  <%#= link_to "Back to flights", flights_path %>
+<!--</div>-->
+
+<h1 class="text-4xl font-semibold mb-5">New flight</h1>
+
+<%= render "form", flight: @flight %>
+
+<div class="mt-4">
+  <%= link_to "Back to flights", flights_path, class: "p-2 bg-gray-500 text-white rounded hover:bg-gray-700" %>
+</div>

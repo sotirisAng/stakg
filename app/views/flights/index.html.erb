@@ -1,0 +1,28 @@
+
+<!--<h1>Flights</h1>-->
+
+<!--<div id="flights">-->
+  <%# @flights.each do |flight| %>
+    <%#= render flight %>
+<!--    <p>-->
+      <%#= link_to "Show this flight", flight %>
+<!--    </p>-->
+  <%# end %>
+<!--</div>-->
+
+<%#= link_to "New flight", new_flight_path %>
+
+<h1 class="text-4xl font-semibold mb-5">Flights</h1>
+
+<div id="flights" class="space-y-4">
+  <% @flights.each do |flight| %>
+    <div class="my-5 bg-gray-100 rounded-lg shadow-md p-5 space-y-2">
+      <%= render flight %>
+      <p>
+        <%= link_to "Show this flight", flight, class: "p-2 bg-blue-500 text-white rounded hover:bg-blue-700" %>
+      </p>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to "New flight", new_flight_path, class: "inline-block mt-5 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" %>
