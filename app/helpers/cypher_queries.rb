@@ -5,7 +5,6 @@ module CypherQueries
     <<-CYPHER
     match (c:Class {name:"Trajectory"})
     merge (tr:Trajectory {name: $name})
-    merge (tr)-[:rdf__type]->(c)
     set tr.label = 'Traj'+ id(tr), tr.uri = "https://w3id.org/onto4drone#"+'Traj'+ id(tr)
     WITH tr
     CALL apoc.load.csv($url, {header:true}) YIELD map

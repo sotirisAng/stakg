@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root to: "application#home"
-  get 'trajectories/get_by_name' => 'trajectories#get_by_name'
+
   resources :points
   resources :trajectories, except: [:create]
 
